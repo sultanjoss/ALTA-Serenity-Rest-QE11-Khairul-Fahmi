@@ -14,7 +14,7 @@ public class ReqresAPI {
 
     public static String GET_SINGLE_USER = Constans.BASE_URL+"/api/users/{id}";
     public static String PUT_UPDATE_USER = Constans.BASE_URL+"/api/users/{id}";
-    public static String DELETE_USER = Constans.BASE_URL+"/{id}";
+    public static String DELETE_USER = Constans.BASE_URL+"/api/users/{id}";
 
     @Step("Get list users")
     public void getListUsers(int page){
