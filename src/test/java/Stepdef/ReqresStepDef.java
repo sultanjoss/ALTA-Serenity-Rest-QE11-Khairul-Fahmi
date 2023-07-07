@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
 import regres.ReqresAPI;
@@ -18,6 +19,8 @@ public class ReqresStepDef {
 
     @Steps
     ReqresAPI reqresAPI;
+
+    //Get List User
     @Given("Get list user with valid parameter page {int}")
     public void getListUserWithValidParameterPage(int page) {
         reqresAPI.getListUsers(page);
@@ -35,13 +38,33 @@ public class ReqresStepDef {
 
     @And("Response body page value should be {int}")
     public void responseBodyPageValueShouldBePage(int page) {
-     SerenityRest.and().body(ReqresResponses.Page,equalTo(page));
+        SerenityRest.and().body(ReqresResponses.Page, equalTo(page));
     }
+
+    @And("Validate get list user JSON schema")
+    public void validateGetListUserJSONSchema() {
+        File json = new File(Constans.JSON_SCHEMA + "/ListUsersSchema.json");
+        SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+    @And("Get log all")
+    public void getLogAll() {
+        SerenityRest.and().log().all();
+    }
+
+    @And("Get log body")
+    public void getLogBody() {
+        SerenityRest.and().log().body();
+    }
+    @And("Print if status code {int} ok")
+    public void printIfStatusCodeOk(int ok) {
+        SerenityRest.and().log().ifStatusCodeIsEqualTo(ok);
+    }
+
 
     //Post crate new user
     @Given("Post create user with valid json")
     public void postCreateUserWithValidJson() {
-        File json = new File(Constans.REQ_BODY +"/User.json");
+        File json = new File(Constans.REQ_BODY + "/User.json");
         reqresAPI.postCreateUser(json);
     }
 
@@ -57,14 +80,16 @@ public class ReqresStepDef {
 
     @And("Response body name was {string} and job was {string}")
     public void responseBodyNameWasAndJobWas(String name, String job) {
-        SerenityRest.and().body(ReqresResponses.NAME,equalTo(name))
-                .body(ReqresResponses.JOB,equalTo(job));
+        SerenityRest.and().body(ReqresResponses.NAME, equalTo(name))
+                .body(ReqresResponses.JOB, equalTo(job));
     }
 
+    //Get Single User
     @Given("Get Single User with valid parameter id {int}")
     public void getSingleUserWithValidParameterPage(int Page) {
         reqresAPI.getSingleUser(Page);
     }
+
     @When("Send request single user")
     public void sendRequestSingleUser() {
         SerenityRest.when().get(ReqresAPI.GET_SINGLE_USER);
@@ -72,35 +97,37 @@ public class ReqresStepDef {
 
     @And("Response email {string}")
     public void responseEmail(String Email) {
-        SerenityRest.and().body(ReqresResponses.EMAIL,equalTo(Email));
+        SerenityRest.and().body(ReqresResponses.EMAIL, equalTo(Email));
     }
 
     @And("Response first_name {string}")
     public void responseFirstName(String FirstName) {
-        SerenityRest.and().body(ReqresResponses.FIRSTNAME,equalTo(FirstName));
+        SerenityRest.and().body(ReqresResponses.FIRSTNAME, equalTo(FirstName));
     }
 
     @And("Response last_name {string}")
     public void responseLastName(String Lastname) {
-        SerenityRest.and().body(ReqresResponses.LASTNAME,equalTo(Lastname));
+        SerenityRest.and().body(ReqresResponses.LASTNAME, equalTo(Lastname));
     }
 
     @And("Response avatar {string}")
     public void responseAvatar(String avatar) {
-        SerenityRest.and().body(ReqresResponses.AVATAR,equalTo(avatar));
+        SerenityRest.and().body(ReqresResponses.AVATAR, equalTo(avatar));
     }
-//put update user
+
+    //put update user
     @Given("Put update user with valid id {int} and json")
     public void putUpdateUserWithValidIdAndJson(int id) {
-        File json = new File(Constans.REQ_BODY+"/UpdateUser.json");
-        reqresAPI.putUpdateUser(id,json);
+        File json = new File(Constans.REQ_BODY + "/UpdateUser.json");
+        reqresAPI.putUpdateUser(id, json);
     }
 
     @When("Send request user with valid id and json")
     public void sendRequestUserWithValidIdAndJson() {
         SerenityRest.when().put(ReqresAPI.PUT_UPDATE_USER);
     }
-//Delete User
+
+    //Delete User
     @Given("Delete user with valid id {int}")
     public void deleteUserWithValidIdId(int id) {
         reqresAPI.deleteUser(id);
@@ -115,4 +142,46 @@ public class ReqresStepDef {
     public void statusCodeShouldBeNoContent(int noContent) {
         SerenityRest.then().statusCode(noContent);
     }
+
+    //Post Register succesful
+    @Given("Post create register with valid json")
+    public void Postcreateregisterwithvalidjson() {
+        File json = new File(Constans.REQ_BODY + "/RegisterSuccessfull.json");
+        reqresAPI.registerSuccessful(json);
+    }
+
+    @When("Send request post register succesfull")
+    public void sendRequestPostRegisterSuccesfull() {
+        SerenityRest.when().post(ReqresAPI.POST_REGISTER_SUCCESSFUL);
+    }
+
+    @And("Response body email was {string} and password {string}")
+    public void responseBodyEmailWasAndPasword(String email, String password) {
+        SerenityRest.and().body(ReqresResponses.EMAIL1, equalTo(email))
+                .body(ReqresResponses.PASSWORD, equalTo(password));
+    }
+
+    @And("Response body was {} and {}")
+    public void responseBodyIdWasAndToken(int id, String token) {
+        SerenityRest.and().body(ReqresResponses.ID, equalTo(id)).body(ReqresResponses.TOKEN, equalTo(token));
+    }
+
+    //GET Single User Not Found
+    @Given("Get single user not found with invalid {}")
+    public void getSingleUserNotFound(int id) {
+        reqresAPI.getSingleUserNotFound(id);
+    }
+
+    @When("Send request single user not found")
+    public void sendRequestSingleUserNotFound() {
+        SerenityRest.when().get(ReqresAPI.GET_SINGLE_USER_NOT_FOUND);
+    }
+
+    @Then("Status code should be {int} Not Found")
+    public void statusCodeShouldBe(int notfound) {
+        SerenityRest.then().statusCode(notfound);
+    }
+
+
+
 }

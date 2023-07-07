@@ -5,6 +5,10 @@ Feature: API automation testing Alta QE Batch 11
     When Send request get list users
     Then Status code should be 200 OK
     And Response body page value should be <page>
+    And Validate get list user JSON schema
+    And Print if status code 200 ok
+    And Get log all
+    And Get log body
     Examples:
       |page  |
       |1     |
@@ -15,23 +19,6 @@ Feature: API automation testing Alta QE Batch 11
     When Send request post create user
     Then Status code should be 201 created
     And Response body name was "Khairul" and job was "TukangBegal"
-
-  @Tugas
-  Scenario: Get Single User with valid parameter page
-    Given Get Single User with valid parameter id 2
-    When Send request single user
-    Then Status code should be 200 OK
-    And Response email "janet.weaver@reqres.in"
-    And Response first_name "Janet"
-    And Response last_name "Weaver"
-    And Response avatar "https://reqres.in/img/faces/2-image.jpg"
-
-#    @Tugas
-#    Scenario: Post register succesfull
-#      Given Post create register with valid json
-#      When Send request post register succesfull
-#      Then Status code should be 200 created
-#      And Response body email was "" and pasword ""
 
   @LatihanGET
   Scenario Outline: Put update user with valid parameter id and JSON
