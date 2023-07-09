@@ -81,7 +81,7 @@ public class GETsingleuserStepDef {
     public void sendRequestListResource() {
         SerenityRest.when().get(ReqresAPI.GET_LIST_RESOURCE);
     }
-    @And("Response body should be contain {} {} {} {}")
+    @And("Response body displays several options {} {} {} {}")
     public void responseBodyShouldBeContainNameYearColorPantone_value(String name, int year, String color, String pantone_value) {
         SerenityRest.then()
                 .body(ReqresResponses.NAME_GET_LIST_RESOURCE, equalTo(name))
@@ -90,10 +90,34 @@ public class GETsingleuserStepDef {
                 .body(ReqresResponses.PANTONE_VALUE, equalTo(pantone_value));
 
     }
-
     @And("Validate get list resource JSON schema")
     public void validateGetListResourceJSONSchema() {
         File json = new File(Constans.JSON_SCHEMA+"/GETlistresourceSchema.json");
         SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+
+    @And("Response body displays support url {string}")
+    public void responseBodyDisplaysSupportUrl(String url) {
+        SerenityRest.and().body(ReqresResponses.SUPPORT_URL, equalTo(url));
+    }
+//Get single resource not found
+    @Given("Get single resource not found with valid id {}")
+    public void getSingleResourceNotFoundWithValidId(int id){
+            SerenityRest.given().pathParam("id", id);
+    }
+
+    @When("Send request single resource not found")
+    public void sendRequestSingleResourceNotFound() {
+        SerenityRest.when().get(ReqresAPI.GET_LIST_RESOURCE);
+    }
+//GET Delayed
+    @Given("Get delayed response {}")
+    public void getDelayedResponse(int second) {
+        reqresAPI.getDelayed(second);
+    }
+
+    @When("Send request get delayed response")
+    public void sendRequestGetDelayedResponse() {
+        SerenityRest.when().get(ReqresAPI.GET_DELAYED);
     }
 }

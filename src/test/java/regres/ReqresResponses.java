@@ -27,5 +27,7 @@ public static String EMAIL1 = "email";
     public static String COLOR = "data.color";
     public static String PANTONE_VALUE = "data.pantone_value";
 
+    public static String SUPPORT_URL = "support.url";
+
 
 }

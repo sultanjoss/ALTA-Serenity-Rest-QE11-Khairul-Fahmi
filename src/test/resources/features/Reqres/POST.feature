@@ -1,15 +1,15 @@
 Feature: testing POST in reqres web
 
-  @Tugas
-  Scenario: Post login succesfully
-    Given Post login successfully with valid json
-    When Send request post login successfully
-    Then Status code should be 200 OK
-    And Response body "QpwL5tke4Pnpja7X4"
-    And Validate post login successfull JSON schema
+    @Tugas
+    Scenario: Post login succesfully
+      Given Post login successfully with valid json
+      When Send request post login successfully
+      Then Status code should be 200 OK
+      And Response body "QpwL5tke4Pnpja7X4"
+      And Validate post login successfull JSON schema
 
     @Tugas @NegativeCase
-      Scenario: Post login with empty email and send password
+    Scenario: Post login with empty email and send password
       Given Post login with empty email and send password
       When Send request post login successfully
       Then Status code should be 400 Bad Request
@@ -33,7 +33,7 @@ Feature: testing POST in reqres web
       And Validate post register successfull JSON schema
 
       @Tugas @NegativeCase
-        Scenario: Post register with empty email and empty password
+      Scenario: Post register with empty email and empty password
         Given Post register with empty email and empty password in json
         When Send request post register succesfull
         Then Status code should be 400 Bad Request
@@ -47,3 +47,11 @@ Feature: testing POST in reqres web
         Then Status code should be 400 created
         And Responses body is "Missing password"
         And Validate post register unsuccessfull JSON schema
+
+      @Tugas @Latihan
+      Scenario: Post create new user with valid JSON
+        Given Post create user with valid json
+        When Send request post create user
+        Then Status code should be 201 created
+        And Response body name was "Khairul" and job was "TukangBegal"
+        And Validate post create JSON schema

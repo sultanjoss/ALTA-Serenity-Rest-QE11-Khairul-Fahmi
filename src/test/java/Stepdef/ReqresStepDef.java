@@ -83,6 +83,11 @@ public class ReqresStepDef {
         SerenityRest.and().body(ReqresResponses.NAME, equalTo(name))
                 .body(ReqresResponses.JOB, equalTo(job));
     }
+    @And("Validate post create JSON schema")
+    public void validatePostCreateJSONSchema() {
+        File json = new File(Constans.JSON_SCHEMA + "/POSTcreateSchema.json");
+        SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
 
     //put update user
     @Given("Put update user with valid id {int} and json")
@@ -111,6 +116,7 @@ public class ReqresStepDef {
     public void statusCodeShouldBeNoContent(int noContent) {
         SerenityRest.then().statusCode(noContent);
     }
+
 
 
 }

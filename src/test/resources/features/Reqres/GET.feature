@@ -18,19 +18,50 @@ Feature: API AUTOMED TUGAS QA BATCH 11
     Examples:
       |id|
       |23|
-@Tugas
-Scenario Outline: Get list resource with valid parameter page
-  Given Get list resource with valid parameter id <id>
-  When Send request list resource
-  Then Status code should be 200 OK
-  And Response body should be contain <name> <year> <color> <pantone_value>
-  And Validate get list resource JSON schema
-  Examples:
-    |id|    name       |  year    | color   | pantone_value   |
+  @Tugas
+  Scenario Outline: Get list resource with valid parameter id
+    Given Get list resource with valid parameter id <id>
+    When Send request list resource
+    Then Status code should be 200 OK
+    And Response body displays several options <Name> <Year> <Color> <Pantone-value>
+    And Response body displays support url "https://reqres.in/#support-heading"
+    And Validate get list resource JSON schema
+    Examples:
+    |id|    Name       |  Year    | Color   | Pantone-value   |
     |1 | cerulean      |  2000    |#98B2D1  |    15-4020      |
     |2 | fuchsia rose  |  2001    |#C74375  |    17-2031      |
     |3 | true red      |  2002    |#BF1932  |    19-1664      |
-    |4 | aqua sky      |  2003    |#7BC4C4  |    14-4811      |
-    |5 | tigerlily     |  2004    |#E2583E  |    17-1456      |
-    |6 | blue turquoise|  2005    |#53B0AE  |    15-5217      |
+
+    @Tugas @NegativeCase
+    Scenario Outline: Get single resource not found
+      Given Get single resource not found with valid id <id>
+      When Send request single resource not found
+      Then Status code should be 404 Not Found
+      Examples:
+      |id|
+      |23|
+
+  @Tugas @Latihan
+  Scenario Outline: Get List Users with valid parameter page
+    Given Get list user with valid parameter page <page>
+    When Send request get list users
+    Then Status code should be 200 OK
+    And Response body page value should be <page>
+    And Validate get list user JSON schema
+    And Print if status code 200 ok
+    And Get log all
+    And Get log body
+    Examples:
+      |page  |
+      |1     |
+      |2     |
+
+    @Tugas
+    Scenario Outline: Get delayed response
+      Given Get delayed response <id>
+      When Send request get delayed response
+      Then Status code should be 200 OK
+      Examples:
+      |id|
+      |3 |
 

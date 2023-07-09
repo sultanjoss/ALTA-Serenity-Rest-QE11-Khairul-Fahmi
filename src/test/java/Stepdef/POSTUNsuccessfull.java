@@ -19,8 +19,8 @@ public class POSTUNsuccessfull {
     ReqresAPI reqresAPI;
 
     @Given("Post login unsuccessfully with invalid json")
-    public void loginUNsuccessfullwithinvalidjson(){
-        File json = new File(Constans.REQ_BODY +"/LoginUNsuccessfull.json");
+    public void loginUNsuccessfullwithinvalidjson() {
+        File json = new File(Constans.REQ_BODY + "/LoginUNsuccessfull.json");
         reqresAPI.postLoginUnsuccessfull(json);
     }
 
@@ -38,15 +38,17 @@ public class POSTUNsuccessfull {
     public void responseBodyIsEror(String eror) {
         SerenityRest.then().body(ReqresResponses.MISSING_PASSWORD, equalTo(eror));
     }
+
     @And("Validate post login unsuccessfull JSON schema")
     public void validatePostLoginUnsuccessfullJSONSchema() {
         File json = new File(Constans.JSON_SCHEMA + "/POSTloginUNSuccessfullSchema.json");
         SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
-//POST REGISTER UNSUCCESSFULL
+
+    //POST REGISTER UNSUCCESSFULL
     @Given("Post register with valid email and empty password")
     public void postRegisterWithValidEmailAndEmptyPassword() {
-        File json = new File(Constans.REQ_BODY+"/RegisterUNsuccessfull.json");
+        File json = new File(Constans.REQ_BODY + "/RegisterUNsuccessfull.json");
         reqresAPI.postRegisterUnssuccesfull(json);
     }
 
@@ -54,9 +56,10 @@ public class POSTUNsuccessfull {
     public void sendRequestRegisterUnsuccessfull() {
         SerenityRest.when().post(ReqresAPI.POST_REGISTER_UNSSUCCESSFULL);
     }
+
     @And("Responses body is {string}")
     public void responsesBodyIs(String error) {
-        SerenityRest.and().body(ReqresResponses.MISSING_PASSWORD,equalTo(error));
+        SerenityRest.and().body(ReqresResponses.MISSING_PASSWORD, equalTo(error));
     }
 
     @And("Validate post register unsuccessfull JSON schema")
