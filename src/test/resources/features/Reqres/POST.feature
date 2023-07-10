@@ -1,6 +1,6 @@
 Feature: testing POST in reqres web
 
-    @Tugas
+  @Tugas
     Scenario: Post login succesfully
       Given Post login successfully with valid json
       When Send request post login successfully
@@ -8,7 +8,7 @@ Feature: testing POST in reqres web
       And Response body "QpwL5tke4Pnpja7X4"
       And Validate post login successfull JSON schema
 
-    @Tugas @NegativeCase
+  @Tugas
     Scenario: Post login with empty email and send password
       Given Post login with empty email and send password
       When Send request post login successfully
@@ -16,7 +16,7 @@ Feature: testing POST in reqres web
       And Response body is eror "Missing email or username"
       And Validate post login successfull JSON schemas
 
-    @Tugas @NegativeCase
+  @Tugas
     Scenario: Post login unsuccesfully
       Given Post login unsuccessfully with invalid json
       When Send request post login unsuccessfully
@@ -24,7 +24,7 @@ Feature: testing POST in reqres web
       And Response body is "Missing password"
       And Validate post login unsuccessfull JSON schema
 
-    @Tugas
+  @Tugas
     Scenario: Post register succesfull
       Given Post create register with valid json
       When Send request post register succesfull
@@ -32,7 +32,7 @@ Feature: testing POST in reqres web
       And Response body was 4 and QpwL5tke4Pnpja7X4
       And Validate post register successfull JSON schema
 
-      @Tugas @NegativeCase
+  @Tugas
       Scenario: Post register with empty email and empty password
         Given Post register with empty email and empty password in json
         When Send request post register succesfull
@@ -40,7 +40,7 @@ Feature: testing POST in reqres web
         And Responses body is "Missing email or username"
         And Validate post register unsuccessfull JSON schemas
 
-      @Tugas @NegativeCase
+  @Tugas
       Scenario: Post register unsuccessfull
         Given Post register with valid email and empty password
         When Send request register unsuccessfull
@@ -48,7 +48,7 @@ Feature: testing POST in reqres web
         And Responses body is "Missing password"
         And Validate post register unsuccessfull JSON schema
 
-      @Tugas @Latihan
+  @Tugas
       Scenario: Post create new user with valid JSON
         Given Post create user with valid json
         When Send request post create user

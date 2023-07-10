@@ -117,7 +117,14 @@ public class GETsingleuserStepDef {
     }
 
     @When("Send request get delayed response")
-    public void sendRequestGetDelayedResponse() {
+    public void sendRequestGetDelayedResponse() throws InterruptedException {
+        Thread.sleep(300);
         SerenityRest.when().get(ReqresAPI.GET_DELAYED);
+    }
+
+    @And("Validate JSON schema")
+    public void validateJSONSchema() {
+        File json = new File(Constans.JSON_SCHEMA +"/GETdelayedSchema.json");
+        SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
 }

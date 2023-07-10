@@ -89,34 +89,4 @@ public class ReqresStepDef {
         SerenityRest.and().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
 
-    //put update user
-    @Given("Put update user with valid id {int} and json")
-    public void putUpdateUserWithValidIdAndJson(int id) {
-        File json = new File(Constans.REQ_BODY + "/UpdateUser.json");
-        reqresAPI.putUpdateUser(id, json);
-    }
-
-    @When("Send request user with valid id and json")
-    public void sendRequestUserWithValidIdAndJson() {
-        SerenityRest.when().put(ReqresAPI.PUT_UPDATE_USER);
-    }
-
-    //Delete User
-    @Given("Delete user with valid id {int}")
-    public void deleteUserWithValidIdId(int id) {
-        reqresAPI.deleteUser(id);
-    }
-
-    @When("Send request delete user")
-    public void sendRequestDeleteUser() {
-        SerenityRest.when().delete(ReqresAPI.DELETE_USER);
-    }
-
-    @Then("Status code should be {int} No Content")
-    public void statusCodeShouldBeNoContent(int noContent) {
-        SerenityRest.then().statusCode(noContent);
-    }
-
-
-
 }
