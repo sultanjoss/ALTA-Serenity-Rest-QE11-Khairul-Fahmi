@@ -85,7 +85,7 @@ public class POSTsuccessfullStepDef {
 //POST Register with empty email and empty password
     @Given("Post register with empty email and empty password in json")
     public void postRegisterWithEmptyEmailAndEmptyPasswordInJson() {
-        File json = new File(Constans.REQ_BODY+ "/RegisterwithEmptyemail and password.json");
+        File json = new File(Constans.REQ_BODY+ "/RegisterwithEmptyemailandpassword.json");
         reqresAPI2.posRegisterwithemptyemailandpassword(json);
 
     }
